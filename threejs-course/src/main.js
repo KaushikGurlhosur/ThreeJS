@@ -4,7 +4,7 @@ import * as THREE from "three";
 const scene = new THREE.Scene();
 
 const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
-const cubeMaterial = new THREE.MeshBasicMaterial({ color: "gray" });
+const cubeMaterial = new THREE.MeshBasicMaterial({ color: "red" });
 
 // Creating a Mesh - which accepts a Geometry and a Material
 const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
@@ -22,6 +22,14 @@ const camera = new THREE.PerspectiveCamera(
 
 // position the camera
 camera.position.z = 5;
+
+// initialize the renderer
+const canvas = document.querySelector("canvas.threejs");
+
+const renderer = new THREE.WebGLRenderer({ canvas });
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.render(scene, camera);
 
 // scene.add(camera); // even camera can be added to the scene
 
