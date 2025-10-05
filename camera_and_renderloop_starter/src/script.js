@@ -5,7 +5,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 const scene = new THREE.Scene();
 
 const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
-const cubeMaterial = new THREE.MeshBasicMaterial({ color: "red" });
+const cubeMaterial = new THREE.MeshBasicMaterial({ color: "white" });
 
 // Creating a Mesh - which accepts a Geometry and a Material
 const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
@@ -14,11 +14,23 @@ const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
 scene.add(cubeMesh);
 
 // initialize the camera
-const camera = new THREE.PerspectiveCamera(
-  50, //fov
-  window.innerWidth / window.innerHeight, // aspect ratio
-  0.1, // anything closer than this can't be seen
-  30 // anything farther than this can't be seen
+// const camera = new THREE.PerspectiveCamera(
+//   50, //fov
+//   window.innerWidth / window.innerHeight, // aspect ratio
+//   0.1, // anything closer than this can't be seen
+//   30 // anything farther than this can't be seen
+// );
+
+const aspectRatio = window.innerWidth / window.innerHeight;
+
+// initialize the OrthographicCamera camera
+const camera = new THREE.OrthographicCamera(
+  -1 * aspectRatio,
+  1 * aspectRatio,
+  1,
+  -1,
+  0.1,
+  200
 );
 
 // position the camera
