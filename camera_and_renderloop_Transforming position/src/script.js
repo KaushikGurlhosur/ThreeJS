@@ -20,6 +20,11 @@ const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
 scene.add(cubeMesh);
 
 // _____________________________
+// Transforming scale
+cubeMesh.scale.set(2, 2, 1);
+// _____________________________
+
+// _____________________________
 // Trasforming position
 cubeMesh.position.x = 1;
 cubeMesh.position.z = -1;
