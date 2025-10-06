@@ -8,9 +8,9 @@ const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
 // const cubeMaterial = new THREE.MeshBasicMaterial({ color: "white" }); // no lighting effect on MeshNasicMaterial
 
 const cubeMaterial = new THREE.MeshStandardMaterial({
-  color: "white",
-  metalness: 0.5, // how metallic it looks (0 = matte, 1 = mirror-like)
-  roughness: 0.3, // lower = shinier surface
+  color: "red",
+  metalness: 0.4, // how metallic it looks (0 = matte, 1 = mirror-like)
+  roughness: 0.1, // lower = shinier surface
 });
 
 // Creating a Mesh - which accepts a Geometry and a Material
@@ -18,6 +18,18 @@ const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
 
 // Adding Mesh to the Scene
 scene.add(cubeMesh);
+
+// _____________________________
+// Trasforming position
+cubeMesh.position.x = 1;
+cubeMesh.position.z = -1;
+cubeMesh.position.y = 1;
+
+// 3D Axis
+const axesHelper = new THREE.AxesHelper(2);
+scene.add(axesHelper);
+
+// _____________________________
 
 // initialize the camera
 const camera = new THREE.PerspectiveCamera(
