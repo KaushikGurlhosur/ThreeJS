@@ -16,8 +16,25 @@ const cubeMaterial = new THREE.MeshStandardMaterial({
 // Creating a Mesh - which accepts a Geometry and a Material
 const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
 
-// Adding Mesh to the Scene
-scene.add(cubeMesh);
+// Creating a group mesh
+// _____________________________
+const cubeMesh2 = new THREE.Mesh(cubeGeometry, cubeMaterial);
+cubeMesh2.position.x = -2;
+const cubeMesh3 = new THREE.Mesh(cubeGeometry, cubeMaterial);
+cubeMesh3.position.x = 2;
+
+const group = new THREE.Group();
+group.add(cubeMesh);
+group.add(cubeMesh2);
+group.add(cubeMesh3);
+
+// group.scale.y = 2; // Applies to all the cubemesh in the group
+
+scene.add(group);
+// _____________________________
+
+// // Adding Mesh to the Scene
+// scene.add(cubeMesh);
 
 // _____________________________
 // Transforming scale
