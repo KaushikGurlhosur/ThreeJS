@@ -49,9 +49,6 @@ const ambientLight = new THREE.AmbientLight("white", 0.5);
 scene.add(ambientLight);
 
 // 💡 Add a directional light for the glossy highlight
-// const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-// directionalLight.position.set(3, 3, 5); // position it at an angle
-// scene.add(directionalLight);
 
 const light = new THREE.DirectionalLight(0xffffff, 2);
 light.position.set(3, 3, 5);
