@@ -8,9 +8,9 @@ const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
 // const cubeMaterial = new THREE.MeshBasicMaterial({ color: "white" }); // no lighting effect on MeshNasicMaterial
 
 const cubeMaterial = new THREE.MeshStandardMaterial({
-  color: "violet",
-  metalness: 0.7, // how metallic it looks (0 = matte, 1 = mirror-like)
-  roughness: 0.1, // lower = shinier surface
+  color: "white",
+  metalness: 0.5, // how metallic it looks (0 = matte, 1 = mirror-like)
+  roughness: 0.3, // lower = shinier surface
 });
 
 // Creating a Mesh - which accepts a Geometry and a Material
@@ -59,9 +59,14 @@ scene.add(light);
 
 const renderer = new THREE.WebGLRenderer({
   canvas,
-  antialias: true, // smooths edges of geometry
+  antialias: true, // smooths edges of geometry // Software solution for staircase like edges
 });
-renderer.setSize(window.innerWidth, window.innerHeight);
+
+// // For antialias - hardware solution
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// renderer.setPixelRatio(window.devicePixelRatio);
+
+console.log(window.devicePixelRatio);
 
 // instantiate the controls
 const controls = new OrbitControls(camera, canvas);
