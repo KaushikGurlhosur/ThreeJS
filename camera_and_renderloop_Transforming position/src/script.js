@@ -21,14 +21,14 @@ scene.add(cubeMesh);
 
 // _____________________________
 // Transforming scale
-cubeMesh.scale.set(2, 2, 1);
+cubeMesh.scale.set(2, 2, 1); // X, Y, Z
 // _____________________________
 
 // _____________________________
-// Trasforming position
-cubeMesh.position.x = 1;
-cubeMesh.position.z = -1;
-cubeMesh.position.y = 1;
+// // Trasforming position
+// cubeMesh.position.x = 1;
+// cubeMesh.position.z = -1;
+// cubeMesh.position.y = 1;
 
 // 3D Axis
 const axesHelper = new THREE.AxesHelper(2);
