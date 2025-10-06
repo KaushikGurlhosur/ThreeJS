@@ -8,7 +8,7 @@ const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
 // const cubeMaterial = new THREE.MeshBasicMaterial({ color: "white" }); // no lighting effect on MeshNasicMaterial
 
 const cubeMaterial = new THREE.MeshStandardMaterial({
-  color: "white",
+  color: "violet",
   metalness: 0.7, // how metallic it looks (0 = matte, 1 = mirror-like)
   roughness: 0.1, // lower = shinier surface
 });
@@ -45,7 +45,7 @@ camera.position.z = 5;
 // initialize the renderer
 const canvas = document.querySelector("canvas.threejs");
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+const ambientLight = new THREE.AmbientLight("white", 0.5);
 scene.add(ambientLight);
 
 // 💡 Add a directional light for the glossy highlight
@@ -63,14 +63,19 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.setSize(window.innerWidth, window.innerHeight);
 
-// renderer.setSize(400, 400);
-
 // instantiate the controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
 
 controls.autoRotate = true;
 controls.autoRotateSpeed = 5; // To increase the autoRotateSpeed - by default its 2
+
+// Resizing
+window.addEventListener("resize", () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
 
 // This fun renders based on devices refresh rate - 60fps / 120fps or more
 const renderloop = () => {
