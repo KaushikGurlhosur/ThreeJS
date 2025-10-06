@@ -5,7 +5,13 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 const scene = new THREE.Scene();
 
 const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
-const cubeMaterial = new THREE.MeshBasicMaterial({ color: "white" });
+// const cubeMaterial = new THREE.MeshBasicMaterial({ color: "white" }); // no lighting effect on MeshNasicMaterial
+
+const cubeMaterial = new THREE.MeshStandardMaterial({
+  color: "white",
+  metalness: 0.7, // how metallic it looks (0 = matte, 1 = mirror-like)
+  roughness: 0.1, // lower = shinier surface
+});
 
 // Creating a Mesh - which accepts a Geometry and a Material
 const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
@@ -14,24 +20,24 @@ const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
 scene.add(cubeMesh);
 
 // initialize the camera
-// const camera = new THREE.PerspectiveCamera(
-//   50, //fov
-//   window.innerWidth / window.innerHeight, // aspect ratio
-//   0.1, // anything closer than this can't be seen
-//   30 // anything farther than this can't be seen
-// );
-
-const aspectRatio = window.innerWidth / window.innerHeight;
-
-// initialize the OrthographicCamera camera
-const camera = new THREE.OrthographicCamera(
-  -1 * aspectRatio,
-  1 * aspectRatio,
-  1,
-  -1,
-  0.1,
-  200
+const camera = new THREE.PerspectiveCamera(
+  50, //fov
+  window.innerWidth / window.innerHeight, // aspect ratio
+  0.1, // anything closer than this can't be seen
+  30 // anything farther than this can't be seen
 );
+
+// const aspectRatio = window.innerWidth / window.innerHeight;
+
+// // initialize the OrthographicCamera camera
+// const camera = new THREE.OrthographicCamera(
+//   -1 * aspectRatio,
+//   1 * aspectRatio,
+//   1,
+//   -1,
+//   0.1,
+//   200
+// );
 
 // position the camera
 camera.position.z = 5;
@@ -39,11 +45,25 @@ camera.position.z = 5;
 // initialize the renderer
 const canvas = document.querySelector("canvas.threejs");
 
+const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+scene.add(ambientLight);
+
+// 💡 Add a directional light for the glossy highlight
+// const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+// directionalLight.position.set(3, 3, 5); // position it at an angle
+// scene.add(directionalLight);
+
+const light = new THREE.DirectionalLight(0xffffff, 2);
+light.position.set(3, 3, 5);
+scene.add(light);
+
 const renderer = new THREE.WebGLRenderer({
   canvas,
   antialias: true, // smooths edges of geometry
 });
 renderer.setSize(window.innerWidth, window.innerHeight);
+
+// renderer.setSize(400, 400);
 
 // instantiate the controls
 const controls = new OrbitControls(camera, canvas);
@@ -55,6 +75,7 @@ controls.autoRotateSpeed = 5; // To increase the autoRotateSpeed - by default it
 // This fun renders based on devices refresh rate - 60fps / 120fps or more
 const renderloop = () => {
   controls.update();
+  light.position.copy(camera.position); // 🧭 same position as camera
   renderer.render(scene, camera);
   window.requestAnimationFrame(renderloop);
 };
