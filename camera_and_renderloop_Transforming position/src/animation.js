@@ -91,8 +91,8 @@ const renderloop = () => {
 
   // cubeMesh.rotation.y += THREE.MathUtils.degToRad(1) * delta * 20;
 
-  // Animating using sin
-  cubeMesh.scale.x = Math.sin(currentTime) + 1;
+  // Animating using sin & playing with Amplitude - 0.5
+  cubeMesh.scale.x = Math.sin(currentTime) * 0.5 + 1;
 
   controls.update();
   light.position.copy(camera.position); // 🧭 same position as camera
