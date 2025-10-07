@@ -11,7 +11,7 @@ const cubeMaterial = new THREE.MeshStandardMaterial({
   color: "white",
   metalness: 0.4, // how metallic it looks (0 = matte, 1 = mirror-like)
   roughness: 0.1, // lower = shinier surface
-  wireframe: true,
+  // wireframe: true,
 });
 
 // Creating a Mesh - which accepts a Geometry and a Material
@@ -26,9 +26,9 @@ cubeMesh.rotation.reorder("YXZ"); // The order of rotation.
 cubeMesh.rotation.y = THREE.MathUtils.degToRad(90);
 cubeMesh.rotation.x = THREE.MathUtils.degToRad(40);
 
-// Adding it to the cubemesh
-const axesHelper = new THREE.AxesHelper(2);
-cubeMesh.add(axesHelper);
+// // Adding it to the cubemesh
+// const axesHelper = new THREE.AxesHelper(2);
+// cubeMesh.add(axesHelper);
 
 // _____________________________
 
@@ -89,7 +89,10 @@ const renderloop = () => {
 
   previousTime = currentTime;
 
-  cubeMesh.rotation.y += THREE.MathUtils.degToRad(1) * delta * 10;
+  // cubeMesh.rotation.y += THREE.MathUtils.degToRad(1) * delta * 20;
+
+  // Animating using sin
+  cubeMesh.scale.x = Math.sin(currentTime) + 1;
 
   controls.update();
   light.position.copy(camera.position); // 🧭 same position as camera
