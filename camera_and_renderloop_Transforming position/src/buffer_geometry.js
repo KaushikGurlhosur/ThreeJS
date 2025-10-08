@@ -7,6 +7,14 @@ const scene = new THREE.Scene();
 // const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
 // const cubeMaterial = new THREE.MeshBasicMaterial({ color: "white" }); // no lighting effect on MeshNasicMaterial
 
+// Create custom goemetry
+const vertices = new Float32Array([0, 0, 0, 0, 2, 0, 2, 0, 0]); // XYZ
+
+const bufferAttribute = new THREE.BufferAttribute(vertices, 3);
+
+const geometry = new THREE.BufferGeometry();
+geometry.setAttribute("position", bufferAttribute);
+
 const cubeMaterial = new THREE.MeshStandardMaterial({
   color: "white",
   metalness: 0.5, // how metallic it looks (0 = matte, 1 = mirror-like)
@@ -16,9 +24,10 @@ const cubeMaterial = new THREE.MeshStandardMaterial({
 
 // Creating a Mesh - which accepts a Geometry and a Material
 // const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
+const cubeMesh = new THREE.Mesh(geometry, cubeMaterial);
 
 // Adding Mesh to the Scene
-// scene.add(cubeMesh);
+scene.add(cubeMesh);
 
 // cubeMesh.rotation.reorder("YXZ"); // The order of rotation.
 
