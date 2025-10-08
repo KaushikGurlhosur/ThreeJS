@@ -4,7 +4,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 // Creating a scene
 const scene = new THREE.Scene();
 
-const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
+// const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
 // const cubeMaterial = new THREE.MeshBasicMaterial({ color: "white" }); // no lighting effect on MeshNasicMaterial
 
 const cubeMaterial = new THREE.MeshStandardMaterial({
@@ -15,16 +15,16 @@ const cubeMaterial = new THREE.MeshStandardMaterial({
 });
 
 // Creating a Mesh - which accepts a Geometry and a Material
-const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
+// const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
 
 // Adding Mesh to the Scene
-scene.add(cubeMesh);
+// scene.add(cubeMesh);
 
-cubeMesh.rotation.reorder("YXZ"); // The order of rotation.
+// cubeMesh.rotation.reorder("YXZ"); // The order of rotation.
 
 // Defining rotation
-cubeMesh.rotation.y = THREE.MathUtils.degToRad(90);
-cubeMesh.rotation.x = THREE.MathUtils.degToRad(40);
+// cubeMesh.rotation.y = THREE.MathUtils.degToRad(90);
+// cubeMesh.rotation.x = THREE.MathUtils.degToRad(40);
 
 // // Adding it to the cubemesh
 // const axesHelper = new THREE.AxesHelper(2);
@@ -92,7 +92,7 @@ const renderloop = () => {
   // cubeMesh.rotation.y += THREE.MathUtils.degToRad(1) * delta * 20;
 
   // Animating using sin & playing with Amplitude - 0.5
-  cubeMesh.scale.x = Math.sin(currentTime) * 0.5 + 1;
+  // cubeMesh.scale.x = Math.sin(currentTime) * 0.5 + 1;
 
   controls.update();
   light.position.copy(camera.position); // 🧭 same position as camera
