@@ -7,7 +7,7 @@ const scene = new THREE.Scene();
 const cubeGeometry = new THREE.BoxGeometry(1, 1, 1, 4, 4, 6);
 const cubeGeometry2 = new THREE.BoxGeometry(1, 1, 1, 4, 4, 6);
 const sphereGeometry = new THREE.SphereGeometry(1, 16, 16);
-const knotGeometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
+const knotGeometry = new THREE.TorusKnotGeometry(5, 1, 100, 16);
 // const cubeMaterial = new THREE.MeshBasicMaterial({ color: "white" }); // no lighting effect on MeshNasicMaterial
 
 const cubeMaterial = new THREE.MeshStandardMaterial({
