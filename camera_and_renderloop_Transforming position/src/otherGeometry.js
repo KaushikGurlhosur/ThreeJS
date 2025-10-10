@@ -7,6 +7,7 @@ const scene = new THREE.Scene();
 const cubeGeometry = new THREE.BoxGeometry(1, 1, 1, 4, 4, 6);
 const cubeGeometry2 = new THREE.BoxGeometry(1, 1, 1, 4, 4, 6);
 const sphereGeometry = new THREE.SphereGeometry(1, 16, 16);
+const knotGeometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
 // const cubeMaterial = new THREE.MeshBasicMaterial({ color: "white" }); // no lighting effect on MeshNasicMaterial
 
 const cubeMaterial = new THREE.MeshStandardMaterial({
@@ -22,7 +23,13 @@ const cubeMaterial2 = new THREE.MeshStandardMaterial({
   // wireframe: true,
 });
 const sphereMaterial = new THREE.MeshStandardMaterial({
-  color: "biege",
+  color: "white",
+  metalness: 0.5, // how metallic it looks (0 = matte, 1 = mirror-like)
+  roughness: 0.1, // lower = shinier surface
+  wireframe: true,
+});
+const knotMaterial = new THREE.MeshStandardMaterial({
+  color: "white",
   metalness: 0.5, // how metallic it looks (0 = matte, 1 = mirror-like)
   roughness: 0.1, // lower = shinier surface
   wireframe: true,
@@ -33,15 +40,18 @@ const sphereMaterial = new THREE.MeshStandardMaterial({
 const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
 const cubeMesh2 = new THREE.Mesh(cubeGeometry2, cubeMaterial2);
 const sphereMesh = new THREE.Mesh(sphereGeometry, sphereMaterial);
+const knotMesh = new THREE.Mesh(knotGeometry, knotMaterial);
 
 cubeMesh.position.x = -0.6; // move left
 cubeMesh2.position.x = 0.6; // move right
+knotMesh.position.x = 2.6; // move right
 sphereMesh.position.z = 1.6;
 
 // Adding Mesh to the Scene
 scene.add(cubeMesh);
 scene.add(cubeMesh2);
 scene.add(sphereMesh);
+scene.add(knotMesh);
 
 // cubeMesh.rotation.reorder("YXZ"); // The order of rotation.
 
