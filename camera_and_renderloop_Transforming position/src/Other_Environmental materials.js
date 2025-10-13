@@ -14,7 +14,8 @@ const TorusKnotGeometry = new THREE.TorusKnotGeometry(0.5, 0.15, 100, 16);
 const planeGeometry = new THREE.PlaneGeometry(1, 1);
 
 // initialize the material
-const material = new THREE.MeshLambertMaterial({ color: 0xffffff });
+const material = new THREE.MeshPhongMaterial({ color: 0x8888ff });
+material.shininess = 590;
 
 // initialize the mesh
 const mesh = new THREE.Mesh(geometry, material);
