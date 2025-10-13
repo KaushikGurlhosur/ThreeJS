@@ -10,6 +10,7 @@ const scene = new THREE.Scene();
 
 // initialize the geometry
 const geometry = new THREE.BoxGeometry(1, 1, 1);
+const TorusKnotGeometry = new THREE.TorusKnotGeometry(0.5, 0.15, 100, 16);
 const planeGeometry = new THREE.PlaneGeometry(1, 1);
 
 // initialize the material
@@ -17,7 +18,7 @@ const material = new THREE.MeshLambertMaterial({ color: 0xffffff });
 
 // initialize the mesh
 const mesh = new THREE.Mesh(geometry, material);
-const mesh2 = new THREE.Mesh(geometry, material);
+const mesh2 = new THREE.Mesh(TorusKnotGeometry, material);
 
 mesh2.position.x = 1.5;
 
@@ -29,11 +30,11 @@ scene.add(mesh2);
 scene.add(plane);
 
 // initialize the light
-const light = new THREE.AmbientLight(0xffffff, 1);
+const light = new THREE.AmbientLight(0xffffff, 0.5);
 
 scene.add(light);
 
-const pointLight = new THREE.PointLight(0xffffff, 90);
+const pointLight = new THREE.PointLight(0xffffff, 70);
 pointLight.position.set(5, 5, 5); // xyz
 scene.add(pointLight);
 
