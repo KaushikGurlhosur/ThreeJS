@@ -13,10 +13,23 @@ const geometry = new THREE.BoxGeometry(1, 1, 1);
 
 // initialize the material
 const material = new THREE.MeshBasicMaterial({
-  color: 0x00ff00,
-  transparent: true,
-  opacity: 0.5,
+  color: "black",
+  //   transparent: true,
+  //   opacity: 0.5,
+  fog: true,
 });
+
+// Adding Fog
+scene.fog = new THREE.Fog(0xffffff, 1, 20);
+
+//Adding background to the scene
+scene.background = new THREE.Color(0xffffff);
+
+console.log(material);
+
+// // Transparent and other properties can be added as below
+// material.transparent = true;
+// material.opacity = 0.5;
 
 // initialize the mesh
 const mesh = new THREE.Mesh(geometry, material);
@@ -58,6 +71,7 @@ window.addEventListener("resize", () => {
 // render the scene
 const renderloop = () => {
   controls.update();
+
   renderer.render(scene, camera);
   window.requestAnimationFrame(renderloop);
 };
