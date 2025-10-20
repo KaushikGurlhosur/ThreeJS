@@ -1,0 +1,99 @@
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { Pane } from "tweakpane";
+
+// initialize the pane
+const pane = new Pane();
+
+// initialize the scene
+const scene = new THREE.Scene();
+
+// initialize the geometry
+const geometry = new THREE.BoxGeometry(1, 1, 1);
+const TorusKnotGeometry = new THREE.TorusKnotGeometry(0.5, 0.15, 100, 16);
+const planeGeometry = new THREE.PlaneGeometry(1, 1);
+
+// initialize the material - USING MeshPhysicalMaterial
+const material = new THREE.MeshPhysicalMaterial({
+  color: "cyan",
+  roughness: 0.2,
+  metalness: 0.8,
+  reflectivity: 1.0,
+  clearcoat: 0.5,
+  clearcoatRoughness: 0.1,
+  thickness: 2,
+});
+
+// Add Tweakpane controls for physical material properties
+pane.addBinding(material, "roughness", { min: 0, max: 1, step: 0.01 });
+pane.addBinding(material, "metalness", { min: 0, max: 1, step: 0.01 });
+pane.addBinding(material, "reflectivity", { min: 0, max: 1, step: 0.01 });
+pane.addBinding(material, "clearcoat", { min: 0, max: 1, step: 0.01 });
+pane.addBinding(material, "clearcoatRoughness", { min: 0, max: 1, step: 0.01 });
+pane.addBinding(material, "color", { color: { type: "float" } });
+
+// initialize the mesh
+const mesh = new THREE.Mesh(geometry, material);
+const mesh2 = new THREE.Mesh(TorusKnotGeometry, material);
+const plane = new THREE.Mesh(planeGeometry, material);
+
+mesh2.position.x = 1.5;
+plane.position.x = -1.5;
+
+scene.add(mesh);
+scene.add(mesh2);
+scene.add(plane);
+
+// initialize the light - using stronger lights for better physical material rendering
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+scene.add(ambientLight);
+
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight.position.set(5, 5, 3);
+scene.add(directionalLight);
+
+const pointLight = new THREE.PointLight(0xffffff, 50);
+pointLight.position.set(0, 5, 0);
+scene.add(pointLight);
+
+// initialize the camera
+const camera = new THREE.PerspectiveCamera(
+  35,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  200
+);
+camera.position.z = 5;
+
+// initialize the renderer
+const canvas = document.querySelector("canvas.threejs");
+const renderer = new THREE.WebGLRenderer({
+  canvas: canvas,
+  antialias: true,
+});
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+// Enable physically correct lighting for best results
+renderer.physicallyCorrectLights = true;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1;
+
+// instantiate the controls
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+
+window.addEventListener("resize", () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// render the scene
+const renderloop = () => {
+  controls.update();
+  renderer.render(scene, camera);
+  window.requestAnimationFrame(renderloop);
+};
+
+renderloop();
