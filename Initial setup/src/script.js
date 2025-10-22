@@ -8,6 +8,9 @@ const pane = new Pane();
 // initialize the scene
 const scene = new THREE.Scene();
 
+// initialize the group
+const group = new THREE.Group();
+
 // initialize the geometry
 const geometry = new THREE.BoxGeometry(1, 1, 1);
 const TorusKnotGeometry = new THREE.TorusKnotGeometry(0.5, 0.15, 100, 16);
@@ -48,10 +51,15 @@ plane.position.x = -1.5;
 cylinder.position.y = -1.5;
 sphere.position.y = 1.5;
 
-scene.add(mesh);
-scene.add(mesh2);
-scene.add(plane);
-scene.add(sphere, cylinder); // adding multiple objects at once
+// Creating a group to hold multiple objects
+group.add(sphere, cylinder, mesh, mesh2, plane);
+
+scene.add(group);
+
+// scene.add(mesh);
+// scene.add(mesh2);
+// scene.add(plane);
+// scene.add(sphere, cylinder); // adding multiple objects at once
 
 // initialize the light - using stronger lights for better physical material rendering
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
@@ -98,9 +106,18 @@ window.addEventListener("resize", () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
+console.log(scene.children);
+
 // render the scene
 const renderloop = () => {
+  group.children.forEach((child) => {
+    if (child instanceof THREE.Mesh) {
+      child.rotateY(0.01); // rotate each mesh in the group
+    }
+  });
+
   controls.update();
+  // mesh.rotateY(0.01); // one way to rotate the geometry
   renderer.render(scene, camera);
   window.requestAnimationFrame(renderloop);
 };
