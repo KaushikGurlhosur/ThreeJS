@@ -15,17 +15,8 @@ const textureLoader = new THREE.TextureLoader();
 const group = new THREE.Group();
 
 // initialize the geometry
-// const geometry = new THREE.BoxGeometry(1, 1, 1);
-// const TorusKnotGeometry = new THREE.TorusKnotGeometry(0.5, 0.15, 100, 16);
-// const planeGeometry = new THREE.PlaneGeometry(1, 1);
 
-// const sphereGeometry = new THREE.SphereGeometry(0.5, 32, 32);
-// const cylinderGeometry = new THREE.CylinderGeometry(0.5, 0.5, 1, 32);
-// ✅ High-resolution geometry for displacement
-const geometry = new THREE.BoxGeometry(1, 1, 1, 64, 64, 64);
-const geometryPlane = new THREE.BoxGeometry(1, 1, 0.01, 64, 64, 64);
-const planeGeometry = new THREE.PlaneGeometry(3, 3, 256, 256);
-const sphereGeometry = new THREE.SphereGeometry(0.5, 128, 128);
+const planeGeometry = new THREE.PlaneGeometry(1, 1);
 
 // initialize the material - USING MeshPhysicalMaterial
 const material = new THREE.MeshPhysicalMaterial({
@@ -42,48 +33,31 @@ const material = new THREE.MeshPhysicalMaterial({
 // const textureTest = textureLoader.load(
 //   "./textures/jagged-cliff1-ue/jagged-cliff1-albedo.png"
 // );
-const texturePaths = {
-  albedo: "./textures/jagged-cliff1-ue/jagged-cliff1-albedo.png",
-  ao: "./textures/jagged-cliff1-ue/jagged-cliff1-ao.png",
-  normal: "./textures/jagged-cliff1-ue/jagged-cliff1-normal-dx.png",
-  metallic: "./textures/jagged-cliff1-ue/jagged-cliff1-normal-dx.png",
-  height: "./textures/jagged-cliff1-ue/jagged-cliff1-height.png",
-  roughness: "./textures/jagged-cliff1-ue/jagged-cliff1-roughness.png",
-};
+const jaggedTexture = textureLoader.load(
+  "./textures/jagged-cliff1-ue/jagged-cliff1-albedo.png"
+);
 
-material.map = textureLoader.load(texturePaths.albedo);
-material.aoMap = textureLoader.load(texturePaths.ao);
-material.normalMap = textureLoader.load(texturePaths.normal);
-material.metalnessMap = textureLoader.load(texturePaths.metallic);
-material.roughnessMap = textureLoader.load(texturePaths.roughness);
-material.displacementMap = textureLoader.load(texturePaths.height);
-material.displacementScale = 0.01; // Controls how much displacement
-material.displacementBias = -0.01; // Optional: offsets the displacement
+// Repeating Textures
+jaggedTexture.repeat.set(100, 100);
+// jaggedTexture.wrapS = THREE.RepeatWrapping; // x axis
+// jaggedTexture.wrapT = THREE.RepeatWrapping; // y-axis
 
-// Add Tweakpane controls for physical material properties
-pane.addBinding(material, "roughness", { min: 0, max: 1, step: 0.01 });
-pane.addBinding(material, "metalness", { min: 0, max: 1, step: 0.01 });
-pane.addBinding(material, "reflectivity", { min: 0, max: 1, step: 0.01 });
-pane.addBinding(material, "clearcoat", { min: 0, max: 1, step: 0.01 });
-pane.addBinding(material, "clearcoatRoughness", { min: 0, max: 1, step: 0.01 });
-pane.addBinding(material, "color", { color: { type: "float" } });
+// Mirrored Repeating Textures
+jaggedTexture.wrapS = THREE.MirroredRepeatWrapping; // x axis
+jaggedTexture.wrapT = THREE.MirroredRepeatWrapping; // y-axis
+
+material.map = jaggedTexture;
 
 // initialize the mesh
-const mesh = new THREE.Mesh(geometry, material);
-// const mesh2 = new THREE.Mesh(TorusKnotGeometry, material);
-const plane = new THREE.Mesh(geometryPlane, material);
-const sphere = new THREE.Mesh(sphereGeometry, material);
-// const cylinder = new THREE.Mesh(cylinderGeometry, material);
 
-// mesh2.position.x = 1.5;
-plane.position.x = -1.5;
+const plane = new THREE.Mesh(planeGeometry, material);
 
-// sphere.position.y = -1.5;
-sphere.position.y = 1.5;
+plane.rotation.x = -(Math.PI * 0.5);
+plane.scale.set(100, 100);
 
 // Creating a group to hold multiple objects
 // group.add(sphere, cylinder, mesh, mesh2, plane);
-group.add(mesh, plane, sphere);
+group.add(plane);
 
 scene.add(group);
 
@@ -111,7 +85,8 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   200
 );
-camera.position.z = 5;
+camera.position.z = 10;
+camera.position.y = 5;
 
 // initialize the renderer
 const canvas = document.querySelector("canvas.threejs");
