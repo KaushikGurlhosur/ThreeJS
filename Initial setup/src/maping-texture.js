@@ -28,10 +28,36 @@ geometry.setAttribute("uv2", uv2);
 console.log(geometry.attributes.uv2);
 
 const TorusKnotGeometry = new THREE.TorusKnotGeometry(0.5, 0.15, 100, 16);
+
+const uv2TorusKnotGeometry = new THREE.BufferAttribute(
+  TorusKnotGeometry.attributes.uv.array,
+  2
+);
+TorusKnotGeometry.setAttribute("uv2", uv2TorusKnotGeometry);
+
 const planeGeometry = new THREE.PlaneGeometry(1, 1);
 
+const uv2PlaneGeometry = new THREE.BufferAttribute(
+  planeGeometry.attributes.uv.array,
+  2
+);
+planeGeometry.setAttribute("uv2", uv2PlaneGeometry);
+
 const sphereGeometry = new THREE.SphereGeometry(0.5, 32, 32);
+
+const uv2SphereGeometry = new THREE.BufferAttribute(
+  sphereGeometry.attributes.uv.array,
+  2
+);
+sphereGeometry.setAttribute("uv2", uv2SphereGeometry);
+
 const cylinderGeometry = new THREE.CylinderGeometry(0.5, 0.5, 1, 32);
+
+const uv2CylinderGeometry = new THREE.BufferAttribute(
+  cylinderGeometry.attributes.uv.array,
+  2
+);
+cylinderGeometry.setAttribute("uv2", uv2CylinderGeometry);
 
 // initialize the material - USING MeshPhysicalMaterial
 const material = new THREE.MeshPhysicalMaterial({
@@ -80,6 +106,8 @@ const jaggedRoughness = textureLoader.load(
 
 material.map = jaggedAlbedo;
 material.aoMap = jaggedAo;
+material.aoMapIntensity = 1;
+
 material.roughnessMap = jaggedRoughness;
 material.roughness = 0.1;
 
