@@ -72,7 +72,12 @@ const jaggedRoughness = textureLoader.load(
 material.map = jaggedAlbedo;
 material.aoMap = jaggedAo;
 material.roughnessMap = jaggedRoughness;
-material.roughness = 1;
+material.roughness = 0.1;
+
+material.normalMap = jaggedNormal;
+material.displacementMap = jaggedHeight;
+material.displacementScale = 0.1;
+material.displacementBias = -0.07;
 
 material.metalnessMap = jaggedMetallic;
 material.metalness = 1;
