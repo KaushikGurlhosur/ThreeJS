@@ -18,6 +18,15 @@ const group = new THREE.Group();
 // initialize the geometry
 
 const geometry = new THREE.BoxGeometry(1, 1, 1);
+
+console.log(geometry.attributes.uv.array);
+
+// Creating UV2 attribute for Ambient Occlusion map
+const uv2 = new THREE.BufferAttribute(geometry.attributes.uv.array, 2);
+geometry.setAttribute("uv2", uv2);
+
+console.log(geometry.attributes.uv2);
+
 const TorusKnotGeometry = new THREE.TorusKnotGeometry(0.5, 0.15, 100, 16);
 const planeGeometry = new THREE.PlaneGeometry(1, 1);
 
@@ -75,9 +84,9 @@ material.roughnessMap = jaggedRoughness;
 material.roughness = 0.1;
 
 material.normalMap = jaggedNormal;
-material.displacementMap = jaggedHeight;
-material.displacementScale = 0.1;
-material.displacementBias = -0.07;
+// material.displacementMap = jaggedHeight;
+// material.displacementScale = 0.1;
+// material.displacementBias = -0.07;
 
 material.metalnessMap = jaggedMetallic;
 material.metalness = 1;
