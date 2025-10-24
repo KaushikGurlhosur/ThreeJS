@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { step } from "three/tsl";
 import { Pane } from "tweakpane";
 
 // initialize the pane
@@ -39,12 +40,20 @@ const jaggedTexture = textureLoader.load(
 
 // Repeating Textures
 jaggedTexture.repeat.set(100, 100);
-// jaggedTexture.wrapS = THREE.RepeatWrapping; // x axis
-// jaggedTexture.wrapT = THREE.RepeatWrapping; // y-axis
+jaggedTexture.wrapS = THREE.RepeatWrapping; // x axis
+jaggedTexture.wrapT = THREE.RepeatWrapping; // y-axis
 
-// Mirrored Repeating Textures
-jaggedTexture.wrapS = THREE.MirroredRepeatWrapping; // x axis
-jaggedTexture.wrapT = THREE.MirroredRepeatWrapping; // y-axis
+// // Mirrored Repeating Textures
+// jaggedTexture.wrapS = THREE.MirroredRepeatWrapping; // x axis
+// jaggedTexture.wrapT = THREE.MirroredRepeatWrapping; // y-axis
+
+// jaggedTexture.offset.x = 0.9;
+
+// Adding Tweakpane controls for texture properties
+pane.addBinding(jaggedTexture, "offset", {
+  x: { min: 0, max: 1, step: 0.001 },
+  y: { min: 0, max: 1, step: 0.001 },
+});
 
 material.map = jaggedTexture;
 
