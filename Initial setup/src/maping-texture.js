@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { step } from "three/tsl";
+
 import { Pane } from "tweakpane";
 
 // initialize the pane
@@ -17,7 +17,12 @@ const group = new THREE.Group();
 
 // initialize the geometry
 
+const geometry = new THREE.BoxGeometry(1, 1, 1);
+const TorusKnotGeometry = new THREE.TorusKnotGeometry(0.5, 0.15, 100, 16);
 const planeGeometry = new THREE.PlaneGeometry(1, 1);
+
+const sphereGeometry = new THREE.SphereGeometry(0.5, 32, 32);
+const cylinderGeometry = new THREE.CylinderGeometry(0.5, 0.5, 1, 32);
 
 // initialize the material - USING MeshPhysicalMaterial
 const material = new THREE.MeshPhysicalMaterial({
@@ -30,50 +35,52 @@ const material = new THREE.MeshPhysicalMaterial({
   thickness: 2,
 });
 
+// initialize the mesh
+const mesh = new THREE.Mesh(geometry, material);
+const mesh2 = new THREE.Mesh(TorusKnotGeometry, material);
+const plane = new THREE.Mesh(planeGeometry, material);
+const sphere = new THREE.Mesh(sphereGeometry, material);
+const cylinder = new THREE.Mesh(cylinderGeometry, material);
+
+mesh2.position.x = 1.5;
+plane.position.x = -1.5;
+
+cylinder.position.y = -1.5;
+sphere.position.y = 1.5;
+
 // initialize the texture
-// const textureTest = textureLoader.load(
-//   "./textures/jagged-cliff1-ue/jagged-cliff1-albedo.png"
-// );
-const jaggedTexture = textureLoader.load(
+
+const jaggedAlbedo = textureLoader.load(
   "./textures/jagged-cliff1-ue/jagged-cliff1-albedo.png"
 );
+const jaggedAo = textureLoader.load(
+  "./textures/jagged-cliff1-ue/jagged-cliff1-ao.png"
+);
+const jaggedHeight = textureLoader.load(
+  "./textures/jagged-cliff1-ue/jagged-cliff1-height.png"
+);
+const jaggedMetallic = textureLoader.load(
+  "./textures/jagged-cliff1-ue/jagged-cliff1-metallic.png"
+);
+const jaggedNormal = textureLoader.load(
+  "./textures/jagged-cliff1-ue/jagged-cliff1-normal-dx.png"
+);
+const jaggedRoughness = textureLoader.load(
+  "./textures/jagged-cliff1-ue/jagged-cliff1-roughness.png"
+);
 
-// Repeating Textures
-jaggedTexture.repeat.set(100, 100);
-jaggedTexture.wrapS = THREE.RepeatWrapping; // x axis
-jaggedTexture.wrapT = THREE.RepeatWrapping; // y-axis
+material.map = jaggedAlbedo;
+material.aoMap = jaggedAo;
+material.roughnessMap = jaggedRoughness;
+material.roughness = 1;
 
-// // Mirrored Repeating Textures
-// jaggedTexture.wrapS = THREE.MirroredRepeatWrapping; // x axis
-// jaggedTexture.wrapT = THREE.MirroredRepeatWrapping; // y-axis
-
-// jaggedTexture.offset.x = 0.9;
-
-// // Adding Tweakpane controls for texture properties
-// pane.addBinding(jaggedTexture, "offset", {
-//   x: { min: 0, max: 1, step: 0.001 },
-//   y: { min: 0, max: 1, step: 0.001 },
-// });
-
-material.map = jaggedTexture;
-
-// initialize the mesh
-
-const plane = new THREE.Mesh(planeGeometry, material);
-
-plane.rotation.x = -(Math.PI * 0.5);
-plane.scale.set(100, 100);
+material.metalnessMap = jaggedMetallic;
+material.metalness = 1;
 
 // Creating a group to hold multiple objects
-// group.add(sphere, cylinder, mesh, mesh2, plane);
-group.add(plane);
+group.add(sphere, cylinder, mesh, mesh2, plane);
 
 scene.add(group);
-
-// scene.add(mesh);
-// scene.add(mesh2);
-// scene.add(plane);
-// scene.add(sphere, cylinder); // adding multiple objects at once
 
 // initialize the light - using stronger lights for better physical material rendering
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
