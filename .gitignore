@@ -28,4 +28,7 @@ dist-ssr
 static/textures/GroundWoodChips001/
 static/textures/
 # Ignore large texture files
+
+Initial setup/static/textures/**
+
 Initial setup/static/textures/
