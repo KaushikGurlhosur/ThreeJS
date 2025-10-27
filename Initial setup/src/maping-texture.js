@@ -111,7 +111,7 @@ material.aoMapIntensity = 1;
 material.roughnessMap = jaggedRoughness;
 material.roughness = 0.1;
 
-material.normalMap = jaggedNormal;
+material.normalMap = jaggedNormal; // provides the illusion of depth and detail
 // material.displacementMap = jaggedHeight;
 // material.displacementScale = 0.1;
 // material.displacementBias = -0.07;
