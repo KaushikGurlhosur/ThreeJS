@@ -54,7 +54,7 @@ const groundWoodNormal = textureLoader.load(
 const groundWoodRoughness = textureLoader.load(
   "./textures/GroundWoodChips001/GroundWoodChips001_GLOSS_8K.jpg"
 );
-const groundWoodReflection = textureLoader.load(
+const groundWoodMetallic = textureLoader.load(
   "./textures/GroundWoodChips001/GroundWoodChips001_REFL_8K.jpg"
 );
 
