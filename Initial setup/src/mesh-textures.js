@@ -10,6 +10,9 @@ const textureLoader = new THREE.TextureLoader();
 // initialize the pane
 const pane = new Pane();
 
+// initialize the group
+const group = new THREE.Group();
+
 // initialize the geometry
 const geometry = new THREE.SphereGeometry(1, 32, 32);
 const uv2 = new THREE.BufferAttribute(geometry.attributes.uv.array, 2);
@@ -79,7 +82,7 @@ const rockyRoughness = textureLoader.load(
 // grass material pane
 const grassPane = pane.addFolder({ title: "Grass Material", expanded: true });
 
-const grassMaterial = new THREE.MeshPhongMaterial({
+const grassMaterial = new THREE.MeshPhysicalMaterial({
   map: grassAlbedo,
   aoMap: grassAo,
   displacementMap: grassHeight,
@@ -109,3 +112,89 @@ grassPane.addBinding(grassMaterial, "aoMapIntensity", {
   max: 1,
   step: 0.01,
 });
+
+// grass material pane
+const groundWoodPane = pane.addFolder({
+  title: "Ground Wood Material",
+  expanded: true,
+});
+
+const groundWoodMaterial = new THREE.MeshPhysicalMaterial({
+  map: groundWoodAlbedo,
+  aoMap: groundWoodAo,
+  displacementMap: groundWoodHeight,
+  displacementScale: 0.1,
+  normalMap: groundWoodNormal,
+  metalnessMap: groundWoodMetallic,
+  roughnessMap: groundWoodRoughness,
+});
+
+groundWoodPane.addBinding(groundWoodMaterial, "metalness", {
+  min: 0,
+  max: 1,
+  step: 0.01,
+});
+groundWoodPane.addBinding(groundWoodMaterial, "roughness", {
+  min: 0,
+  max: 1,
+  step: 0.01,
+});
+groundWoodPane.addBinding(groundWoodMaterial, "displacementScale", {
+  min: 0,
+  max: 1,
+  step: 0.01,
+});
+groundWoodPane.addBinding(groundWoodMaterial, "aoMapIntensity", {
+  min: 0,
+  max: 1,
+  step: 0.01,
+});
+
+// Rocky material pane
+const rockyPane = pane.addFolder({ title: "Grass Material", expanded: true });
+
+const rockyMaterial = new THREE.MeshPhysicalMaterial({
+  map: rockyAlbedo,
+  aoMap: rockyAo,
+  displacementMap: rockyHeight,
+  displacementScale: 0.1,
+  normalMap: rockyNormal,
+  metalnessMap: rockyMetallic,
+  roughnessMap: rockyRoughness,
+});
+
+rockyPane.addBinding(rockyMaterial, "metalness", {
+  min: 0,
+  max: 1,
+  step: 0.01,
+});
+rockyPane.addBinding(rockyMaterial, "roughness", {
+  min: 0,
+  max: 1,
+  step: 0.01,
+});
+rockyPane.addBinding(rockyMaterial, "displacementScale", {
+  min: 0,
+  max: 1,
+  step: 0.01,
+});
+rockyPane.addBinding(rockyMaterial, "aoMapIntensity", {
+  min: 0,
+  max: 1,
+  step: 0.01,
+});
+
+// Initialize the mesh
+const grass = new THREE.Mesh(geometry, grassMaterial);
+
+const groundwood = new THREE.Mesh(geometry, groundWoodMaterial);
+groundwood.position.x = 3;
+
+const rocky = new THREE.Mesh(geometry, rockyMaterial);
+rocky.position.x = -3;
+
+// Adding mesh to the group
+group.add(grass, groundwood, rocky);
+
+// adding the group to the scene
+scene.add(group);
