@@ -64,7 +64,6 @@ const moon = new THREE.Mesh(sphereGeometry, moonMaterial);
 moon.scale.setScalar(0.3);
 
 // position moon
-
 moon.position.x = 2;
 
 // Local space for the moon - make the moon a child of the earth
@@ -113,13 +112,21 @@ window.addEventListener("resize", () => {
 
 console.log(scene.children);
 
+// initialze a clock
+const clock = new THREE.Clock();
+
 // render the scene
 const renderloop = () => {
-  group.children.forEach((child) => {
-    if (child instanceof THREE.Mesh) {
-      // child.rotateY(0.01); // rotate each mesh in the group
-    }
-  });
+  const elapsedTime = clock.getElapsedTime();
+
+  // add animation here
+  earth.rotateY(0.01);
+
+  earth.position.x = Math.sin(elapsedTime) * 10;
+  earth.position.z = Math.cos(elapsedTime) * 10;
+
+  moon.position.x = Math.sin(elapsedTime) * 2;
+  moon.position.z = Math.cos(elapsedTime) * 2;
 
   controls.update();
   // mesh.rotateY(0.01); // one way to rotate the geometry
