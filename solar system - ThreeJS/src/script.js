@@ -36,6 +36,9 @@ const sun = new THREE.Mesh(sphereGeometry, sunMaterial);
 
 scene.add(sun);
 
+// scale the sun
+sun.scale.setScalar(5);
+
 // initialize the light - using stronger lights for better physical material rendering
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
 scene.add(ambientLight);
