@@ -34,10 +34,23 @@ const sunMaterial = new THREE.MeshPhysicalMaterial({
 
 const sun = new THREE.Mesh(sphereGeometry, sunMaterial);
 
-scene.add(sun);
-
 // scale the sun
 sun.scale.setScalar(5);
+
+scene.add(sun);
+
+// Earth material
+const earthMaterial = new THREE.MeshPhysicalMaterial({
+  color: "blue",
+});
+
+// initialize the earth mesh
+const earth = new THREE.Mesh(sphereGeometry, earthMaterial);
+
+// position earth
+earth.position.x = 10;
+
+scene.add(earth);
 
 // initialize the light - using stronger lights for better physical material rendering
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
