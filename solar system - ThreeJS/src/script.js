@@ -52,6 +52,24 @@ earth.position.x = 10;
 
 scene.add(earth);
 
+// Moon material
+const moonMaterial = new THREE.MeshPhysicalMaterial({
+  color: "grey",
+});
+
+// initialize the moon mesh
+const moon = new THREE.Mesh(sphereGeometry, moonMaterial);
+
+// scale the moon
+moon.scale.setScalar(0.3);
+
+// position moon
+
+moon.position.x = 2;
+
+// Local space for the moon - make the moon a child of the earth
+earth.add(moon);
+
 // initialize the light - using stronger lights for better physical material rendering
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
 scene.add(ambientLight);
