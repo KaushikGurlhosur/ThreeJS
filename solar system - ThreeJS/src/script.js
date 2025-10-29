@@ -1,16 +1,22 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
-import { Pane } from "tweakpane";
-
-// initialize the pane
-const pane = new Pane();
-
 // initialize the scene
 const scene = new THREE.Scene();
 
 // initialize the loader
 const textureLoader = new THREE.TextureLoader();
+
+// adding textures
+const sunTexture = textureLoader.load("./textures/2k_sun.jpg");
+
+const mercuryTexture = textureLoader.load("./textures/2k_mercury.jpg");
+
+const marsTexture = textureLoader.load("./textures/2k_mars.jpg");
+
+const venusTexture = textureLoader.load("./textures/2k_venus_surface.jpg");
+
+const earthTexture = textureLoader.load("./textures/2k_earth_daymap.jpg");
 
 // initialize the group
 const group = new THREE.Group();
@@ -21,13 +27,12 @@ const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
 
 // initialize the material - USING MeshPhysicalMaterial
 const sunMaterial = new THREE.MeshPhysicalMaterial({
-  color: 0xfff700,
-  roughness: 0.2,
+  map: sunTexture,
+  roughness: 0.4,
   metalness: 0.2,
-  reflectivity: 1.0,
-  clearcoat: 0.5,
-  clearcoatRoughness: 0.1,
-  thickness: 2,
+  emissiveMap: sunTexture,
+  emissiveIntensity: 1.5,
+  emissive: "white",
 });
 
 // initialize the mesh
@@ -39,61 +44,61 @@ sun.scale.setScalar(5);
 
 scene.add(sun);
 
-const planets = [
-  {
-    name: "Mercury",
-    radius: 0.5,
-    distance: 10,
-    speed: 0.01,
-    material: mercuryMaterial,
-    moons: [],
-  },
-  {
-    name: "Venus",
-    radius: 0.8,
-    distance: 15,
-    speed: 0.007,
-    material: venusMaterial,
-    moons: [],
-  },
-  {
-    name: "Earth",
-    radius: 1,
-    distance: 20,
-    speed: 0.005,
-    material: earthMaterial,
-    moons: [
-      {
-        name: "Moon",
-        radius: 0.3,
-        distance: 3,
-        speed: 0.015,
-      },
-    ],
-  },
-  {
-    name: "Mars",
-    radius: 0.7,
-    distance: 25,
-    speed: 0.003,
-    material: marsMaterial,
-    moons: [
-      {
-        name: "Phobos",
-        radius: 0.1,
-        distance: 2,
-        speed: 0.02,
-      },
-      {
-        name: "Deimos",
-        radius: 0.2,
-        distance: 3,
-        speed: 0.015,
-        color: 0xffffff,
-      },
-    ],
-  },
-];
+// const planets = [
+//   {
+//     name: "Mercury",
+//     radius: 0.5,
+//     distance: 10,
+//     speed: 0.01,
+//     material: mercuryMaterial,
+//     moons: [],
+//   },
+//   {
+//     name: "Venus",
+//     radius: 0.8,
+//     distance: 15,
+//     speed: 0.007,
+//     material: venusMaterial,
+//     moons: [],
+//   },
+//   {
+//     name: "Earth",
+//     radius: 1,
+//     distance: 20,
+//     speed: 0.005,
+//     material: earthMaterial,
+//     moons: [
+//       {
+//         name: "Moon",
+//         radius: 0.3,
+//         distance: 3,
+//         speed: 0.015,
+//       },
+//     ],
+//   },
+//   {
+//     name: "Mars",
+//     radius: 0.7,
+//     distance: 25,
+//     speed: 0.003,
+//     material: marsMaterial,
+//     moons: [
+//       {
+//         name: "Phobos",
+//         radius: 0.1,
+//         distance: 2,
+//         speed: 0.02,
+//       },
+//       {
+//         name: "Deimos",
+//         radius: 0.2,
+//         distance: 3,
+//         speed: 0.015,
+//         color: 0xffffff,
+//       },
+//     ],
+//   },
+// ];
 
 // // Earth material
 // const earthMaterial = new THREE.MeshPhysicalMaterial({
@@ -135,7 +140,7 @@ scene.add(directionalLight);
 
 const pointLight = new THREE.PointLight(0xffffff, 50);
 pointLight.position.set(0, 5, 0);
-scene.add(pointLight);
+// scene.add(pointLight);
 
 // initialize the camera
 const camera = new THREE.PerspectiveCamera(
