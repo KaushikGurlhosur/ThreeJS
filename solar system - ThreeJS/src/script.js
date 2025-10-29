@@ -143,7 +143,7 @@ const planets = [
   },
 ];
 
-const planetMeshes = planets.map((planet) => {
+const createPlanet = (planet) => {
   // initialize the planet mesh
   const planetMesh = new THREE.Mesh(sphereGeometry, planet.material);
 
@@ -151,17 +151,28 @@ const planetMeshes = planets.map((planet) => {
   planetMesh.scale.setScalar(planet.radius);
   planetMesh.position.x = planet.distance;
 
+  return planetMesh;
+};
+
+const createMoon = (moon) => {
+  const moonMesh = new THREE.Mesh(sphereGeometry, moonMaterial);
+  moonMesh.scale.setScalar(moon.radius);
+  moonMesh.position.x = moon.distance;
+  return moonMesh;
+};
+
+const planetMeshes = planets.map((planet) => {
+  const planetMesh = createPlanet(planet);
   // add it to our scene
   scene.add(planetMesh);
 
   // add moons if any
   planet.moons.forEach((moon) => {
-    const moonMesh = new THREE.Mesh(sphereGeometry, moonMaterial);
-    moonMesh.scale.setScalar(moon.radius);
-    moonMesh.position.x = moon.distance;
-
+    const moonMesh = createMoon(moon);
     planetMesh.add(moonMesh);
   });
+
+  return planetMesh;
 });
 
 // // Earth material
@@ -237,21 +248,15 @@ window.addEventListener("resize", () => {
 
 console.log(scene.children);
 
-// initialze a clock
-const clock = new THREE.Clock();
-
 // render the scene
 const renderloop = () => {
-  // const elapsedTime = clock.getElapsedTime();
+  planetMeshes.forEach((planet, index) => {
+    // planet.rotateY(planets[index].speed);
+    planet.rotation.y += planets[index].speed;
 
-  // // add animation here
-  // earth.rotateY(0.01);
-
-  // earth.position.x = Math.sin(elapsedTime) * 10;
-  // earth.position.z = Math.cos(elapsedTime) * 10;
-
-  // moon.position.x = Math.sin(elapsedTime) * 2;
-  // moon.position.z = Math.cos(elapsedTime) * 2;
+    planet.position.x = Math.sin(planet.rotation.y) * planets[index].distance;
+    planet.position.z = Math.cos(planet.rotation.y) * planets[index].distance;
+  });
 
   controls.update();
   // mesh.rotateY(0.01); // one way to rotate the geometry
