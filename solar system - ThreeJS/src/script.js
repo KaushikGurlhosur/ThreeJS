@@ -18,6 +18,8 @@ const venusTexture = textureLoader.load("./textures/2k_venus_surface.jpg");
 
 const earthTexture = textureLoader.load("./textures/2k_earth_daymap.jpg");
 
+const moonTexture = textureLoader.load("./textures/2k_moon.jpg");
+
 // initialize the group
 const group = new THREE.Group();
 
@@ -31,6 +33,47 @@ const sunMaterial = new THREE.MeshPhysicalMaterial({
   roughness: 0.4,
   metalness: 0.2,
   emissiveMap: sunTexture,
+  emissiveIntensity: 1.5,
+  emissive: "white",
+});
+const mercuryMaterial = new THREE.MeshPhysicalMaterial({
+  map: mercuryTexture,
+  roughness: 0.4,
+  metalness: 0.2,
+  emissiveMap: mercuryTexture,
+  emissiveIntensity: 1.5,
+  emissive: "white",
+});
+const marsMaterial = new THREE.MeshPhysicalMaterial({
+  map: marsTexture,
+  roughness: 0.4,
+  metalness: 0.2,
+  emissiveMap: marsTexture,
+  emissiveIntensity: 1.5,
+  emissive: "white",
+});
+const venusMaterial = new THREE.MeshPhysicalMaterial({
+  map: venusTexture,
+  roughness: 0.4,
+  metalness: 0.2,
+  emissiveMap: venusTexture,
+  emissiveIntensity: 1.5,
+  emissive: "white",
+});
+const earthMaterial = new THREE.MeshPhysicalMaterial({
+  map: earthTexture,
+  roughness: 0.4,
+  metalness: 0.2,
+  emissiveMap: earthTexture,
+  emissiveIntensity: 1.5,
+  emissive: "white",
+});
+
+const moonMaterial = new THREE.MeshPhysicalMaterial({
+  map: moonTexture,
+  roughness: 0.4,
+  metalness: 0.2,
+  emissiveMap: moonTexture,
   emissiveIntensity: 1.5,
   emissive: "white",
 });
@@ -147,7 +190,7 @@ const camera = new THREE.PerspectiveCamera(
   35,
   window.innerWidth / window.innerHeight,
   0.1,
-  200
+  900
 );
 camera.position.z = 100;
 camera.position.y = 5;
