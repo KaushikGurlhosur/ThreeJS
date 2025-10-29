@@ -39,35 +39,91 @@ sun.scale.setScalar(5);
 
 scene.add(sun);
 
-// Earth material
-const earthMaterial = new THREE.MeshPhysicalMaterial({
-  color: "blue",
-});
+const planets = [
+  {
+    name: "Mercury",
+    radius: 0.5,
+    distance: 10,
+    speed: 0.01,
+    material: mercuryMaterial,
+    moons: [],
+  },
+  {
+    name: "Venus",
+    radius: 0.8,
+    distance: 15,
+    speed: 0.007,
+    material: venusMaterial,
+    moons: [],
+  },
+  {
+    name: "Earth",
+    radius: 1,
+    distance: 20,
+    speed: 0.005,
+    material: earthMaterial,
+    moons: [
+      {
+        name: "Moon",
+        radius: 0.3,
+        distance: 3,
+        speed: 0.015,
+      },
+    ],
+  },
+  {
+    name: "Mars",
+    radius: 0.7,
+    distance: 25,
+    speed: 0.003,
+    material: marsMaterial,
+    moons: [
+      {
+        name: "Phobos",
+        radius: 0.1,
+        distance: 2,
+        speed: 0.02,
+      },
+      {
+        name: "Deimos",
+        radius: 0.2,
+        distance: 3,
+        speed: 0.015,
+        color: 0xffffff,
+      },
+    ],
+  },
+];
 
-// initialize the earth mesh
-const earth = new THREE.Mesh(sphereGeometry, earthMaterial);
+// // Earth material
+// const earthMaterial = new THREE.MeshPhysicalMaterial({
+//   color: "blue",
+// });
 
-// position earth
-earth.position.x = 10;
+// // initialize the earth mesh
+// const earth = new THREE.Mesh(sphereGeometry, earthMaterial);
 
-scene.add(earth);
+// // position earth
+// earth.position.x = 10;
 
-// Moon material
-const moonMaterial = new THREE.MeshPhysicalMaterial({
-  color: "grey",
-});
+// scene.add(earth);
 
-// initialize the moon mesh
-const moon = new THREE.Mesh(sphereGeometry, moonMaterial);
+// // Moon material
+// const moonMaterial = new THREE.MeshPhysicalMaterial({
+//   color: "grey",
+// });
 
-// scale the moon
-moon.scale.setScalar(0.3);
+// // initialize the moon mesh
+// const moon = new THREE.Mesh(sphereGeometry, moonMaterial);
 
-// position moon
-moon.position.x = 2;
+// // scale the moon
+// moon.scale.setScalar(0.3);
 
-// Local space for the moon - make the moon a child of the earth
-earth.add(moon);
+// // position moon
+// moon.position.x = 2;
+
+// // Local space for the moon - make the moon a child of the earth
+// earth.add(moon);
 
 // initialize the light - using stronger lights for better physical material rendering
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
@@ -117,16 +173,16 @@ const clock = new THREE.Clock();
 
 // render the scene
 const renderloop = () => {
-  const elapsedTime = clock.getElapsedTime();
+  // const elapsedTime = clock.getElapsedTime();
 
-  // add animation here
-  earth.rotateY(0.01);
+  // // add animation here
+  // earth.rotateY(0.01);
 
-  earth.position.x = Math.sin(elapsedTime) * 10;
-  earth.position.z = Math.cos(elapsedTime) * 10;
+  // earth.position.x = Math.sin(elapsedTime) * 10;
+  // earth.position.z = Math.cos(elapsedTime) * 10;
 
-  moon.position.x = Math.sin(elapsedTime) * 2;
-  moon.position.z = Math.cos(elapsedTime) * 2;
+  // moon.position.x = Math.sin(elapsedTime) * 2;
+  // moon.position.z = Math.cos(elapsedTime) * 2;
 
   controls.update();
   // mesh.rotateY(0.01); // one way to rotate the geometry
