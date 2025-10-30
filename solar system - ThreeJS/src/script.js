@@ -627,6 +627,7 @@ marsTexture.colorSpace = THREE.SRGBColorSpace;
 const moonTexture = textureLoader.load("/textures/2k_moon.jpg");
 moonTexture.colorSpace = THREE.SRGBColorSpace;
 
+// Added cube map as background - it requires 6 images - as cube has 6 faces
 const backgroundCubemap = cubeTextureLoader.load([
   "px.png",
   "nx.png",
